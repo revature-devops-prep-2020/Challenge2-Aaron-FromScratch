@@ -16,8 +16,8 @@
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
     <exec.mainClass>com.Aaron.App</exec.mainClass>
-    <sonar.projectKey>AaronDownward_aaron-challenge2</sonar.projectKey>
-    <sonar.organization>aarondownward</sonar.organization>
+    <sonar.projectKey>revature-devops-prep-2020_Challenge2-Aaron-FromScratch</sonar.projectKey>
+    <sonar.organization>revature-devops-prep-2020</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
   </properties>
 
