@@ -120,7 +120,9 @@ pipeline {
                     echo "${trivyCode}"
                 }
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    env.trivyExit = sh "trivy image --exit-code 1 alpine:latest"
+                    script {
+                        env.trivyExit = sh "trivy image --exit-code 1 alpine:latest"
+                    }
                 } 
             }
             post {
