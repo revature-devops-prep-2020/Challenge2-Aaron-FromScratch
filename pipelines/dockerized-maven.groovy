@@ -79,7 +79,6 @@ pipeline {
                 //         }
                 //     }
                     echo 'pass'
-                }
             }
             post {
                 failure{
