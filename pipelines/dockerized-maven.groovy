@@ -49,12 +49,13 @@ pipeline {
                     args '-v $HOME/.m2:/root/.m2 --net=host' }
             }
             steps {
-                dir("maven-app") {
-                    withSonarQubeEnv("SonarCloud") {
-                        sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
-                        sleep (20)
-                    }
-                }
+                // dir("maven-app") {
+                //     withSonarQubeEnv("SonarCloud") {
+                //         sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
+                //         sleep (20)
+                //     }
+                // }
+                echo "pass"
             }
             post {
                 failure{
@@ -69,14 +70,14 @@ pipeline {
                     args '--net=host' }
             }
             steps{
-                dir("maven-app") {
-                    withSonarQubeEnv('SonarCloud') {
-                        timeout(time: 10, unit: 'MINUTES') {
-                            // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                            // true = set pipeline to UNSTABLE, false = don't
-                            waitForQualityGate abortPipeline: false
-                        }
-                    }
+                // dir("maven-app") {
+                //     withSonarQubeEnv('SonarCloud') {
+                //         timeout(time: 10, unit: 'MINUTES') {
+                //             // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                //             // true = set pipeline to UNSTABLE, false = don't
+                //             waitForQualityGate abortPipeline: false
+                //         }
+                //     }
                     echo 'pass'
                 }
             }
