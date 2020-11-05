@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Pull') {
             steps {
-                git url: "https://github.com/AaronDownward/aaron-challenge2.git", branch: "dev"
+                git url: "https://github.com/revature-devops-prep-2020/Challenge2-Aaron-FromScratch.git", branch: "dev"
             }
             post {
                 failure{
