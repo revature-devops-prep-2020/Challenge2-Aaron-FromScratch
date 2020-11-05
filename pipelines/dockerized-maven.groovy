@@ -106,6 +106,25 @@ pipeline {
                 }
             }
         }
+        stage('Scan image') {
+            agent {
+                docker { 
+                    image 'aquasec/trivy'
+                    args '--net=host'
+                    }
+            }
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    sh "trivy image --exit-code 1 ${dockerTBuildNum}"
+                }
+            }
+            post {
+                failure {
+                    slackSend(color: 'warning', channel: "${slackChannel}",
+                    message: "${projMsgName} has vulnerabilities in its image.")
+                }
+            }
+        }
         stage("Docker push") {
             agent {
                 docker { image 'docker' }
