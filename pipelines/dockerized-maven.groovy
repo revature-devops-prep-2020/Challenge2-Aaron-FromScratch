@@ -62,11 +62,6 @@ pipeline {
             }
         }
         stage('quality gate'){
-            agent {
-                docker { 
-                    image 'maven'
-                    args '-v $HOME/.m2:/root/.m2 --net=host' }
-            }
             steps{
                 dir("maven-app") {
                     withSonarQubeEnv('SonarCloud') {
