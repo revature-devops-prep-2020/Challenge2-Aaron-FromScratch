@@ -118,7 +118,7 @@ pipeline {
                 trivyExitCode = """sh 'trivy image --exit-code 1 aarondownward/maven-app:${currentBuild.number}'"""
             }
             steps {
-                echo ${trivyExitCode}
+                echo "${trivyExitCode}"
             }
             post {
                 failure {
