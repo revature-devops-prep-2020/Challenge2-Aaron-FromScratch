@@ -115,7 +115,10 @@ pipeline {
                     }
             }
             environment {
-                trivyExitCode = """sh 'trivy image --exit-code 1 alpine:latest'"""
+                trivyExitCode = """${sh(
+                    returnStdout: true,
+                    script: 'trivy image --exit-code 1 alpine:latest'
+                    )}"""
             }
             steps {
                 echo "${trivyExitCode}"
