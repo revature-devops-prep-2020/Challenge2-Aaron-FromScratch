@@ -1,0 +1,21 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: devops-challenge2
+  region: us-west-2
+
+nodeGroups:
+  - name: no2-ng
+    instanceType: t2.medium
+    desiredCapacity: 1
+    # ssh:
+    #     publicKeyPath: ~/.ssh/id_rsa.pub (not needed for this challenge)
+
+cloudWatch:
+    clusterLogging:
+        # enable specific types of cluster control plane logs
+        enableTypes: ["audit", "authenticator", "controllerManager"]
+        # all supported types: "api", "audit", "authenticator", "controllerManager", "scheduler"
+        # supported special values: "*" and "all"
+        # you can view them here https://console.aws.amazon.com/cloudwatch/home#logs:prefix=/aws/eks

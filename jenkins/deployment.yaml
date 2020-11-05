@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    namespace: build
+    name: jenkins
+    labels:
+        app: jenkins
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: jenkins
+    template:
+        metadata:
+            labels:
+                app: jenkins
+        spec:
+            containers:
+            -   name: jenkins
+                image: aarondownward/challenge2jenkins:latest
+                ports:
+                - containerPort: 8080
+                - containerPort: 50000
+                imagePullPolicy: Always
+                volumeMounts:
+                    - mountPath: /var/run/docker.sock
+                      name: docker-socket
+            volumes:
+            -   name: docker-socket
+                hostPath:
+                    path: /var/run/docker.sock
+            restartPolicy: Always
