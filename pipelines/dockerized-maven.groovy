@@ -109,7 +109,7 @@ pipeline {
         stage('Scan image') {
             agent {
                 docker { 
-                    image 'aquasec/trivy'
+                    image 'aarondownward/trivy'
                     args '--net=host'
                     }
             }
