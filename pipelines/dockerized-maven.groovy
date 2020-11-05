@@ -117,7 +117,7 @@ pipeline {
             environment {
                 trivyExitCode = """${sh(
                     returnStdout: true,
-                    script: 'trivy image --exit-code 1 alpine:latest'
+                    script: 'trivy image --exit-code 1 aarondownward/maven-test:latest'
                     )}"""
             }
             steps {
