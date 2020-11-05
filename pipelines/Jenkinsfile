@@ -45,6 +45,23 @@ pipeline {
                 }
             }
         }
+        stage('quality gate'){
+            steps{
+                withSonarQubeEnv('SonarCloud')
+                {
+                    timeout(time: 10, unit: 'MINUTES') {
+                        // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                        // true = set pipeline to UNSTABLE, false = don't
+                        waitForQualityGate abortPipeline: true
+                    }
+                }
+            }
+            post {
+                failure{
+                    slackSend(color: '#FF0000', message: "${projectName}' [${gitBranch}:${currentBuild.number}] did not pass the quality gate")
+                }
+            }
+        }
         stage("Push Docker Image") {
             steps {
                 script {
