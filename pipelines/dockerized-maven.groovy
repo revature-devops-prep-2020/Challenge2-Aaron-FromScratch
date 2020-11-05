@@ -64,7 +64,7 @@ pipeline {
         stage('quality gate'){
             agent {
                 docker { 
-                    image 'sonar'
+                    image 'docker'
                     args '--net=host' }
             }
             steps{
