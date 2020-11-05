@@ -6,9 +6,6 @@ pipeline {
        projectName = 'challenge2'
        gitBranch = 'dev'
    }
-    tools {
-        maven 'maven'
-    }
 
     stages {
         stage('Pull') {
@@ -105,7 +102,7 @@ pipeline {
             }
             post {
                 failure{
-                    slackSend(color: '#FF0000', message: "${projectName}' [${gitBranch}:${currentBuild.number}] has failed to push image to docker hub.")
+                    slackSend(color: '#FF0000', message: "${projectName}' [${gitBranch}:${currentBuild.number}] has failed to build docker image.")
                 }
             }
         }
@@ -116,11 +113,16 @@ pipeline {
             steps {
                 script {
                     docker.withTool("docker") {
-                            docker.withRegistry("https://registry.hub.docker.com", "dockerhub-cred") {
-                                dockerImageCurrent.push()
-                                dockerImageLatest.push()
-                            }
+                        docker.withRegistry("https://registry.hub.docker.com", "dockerhub-cred") {
+                            dockerImageCurrent.push()
+                            dockerImageLatest.push()
                         }
+                    }
+                }
+            }
+            post {
+                failure{
+                    slackSend(color: '#FF0000', message: "${projectName}' [${gitBranch}:${currentBuild.number}] has failed to push image to docker hub.")
                 }
             }
         }
