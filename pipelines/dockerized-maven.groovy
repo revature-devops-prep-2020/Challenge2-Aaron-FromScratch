@@ -52,6 +52,7 @@ pipeline {
                 dir("maven-app") {
                     withSonarQubeEnv("SonarCloud") {
                         sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
+                        sleep (20)
                     }
                 }
             }
