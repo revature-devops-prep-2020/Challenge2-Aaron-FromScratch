@@ -1,0 +1,141 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - string:
+          description: "sonar token"
+          id: "SONAR_TOKEN"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAwhYSnZO1n6LvXbVA7mDRC7saMGIPxw1p2NuyfVQ34E1nJ6yHygmkVQWGWJqSrs7q9fKXy+A9+mpfj3kPt6J/lkQ==}"
+      - string:
+          description: "kubectl creds"
+          id: "kubectl-creds"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAOglDFTJKhjhbTeFIWO6adnDWQ/PGn4vEjLLqXMZiHFvd3Clp9dmx/7iPrGPe1fmauzkNF9MwXnFfY9TPEchzL6mUHMBj4FOd4Y+rL//lVm7hISg3WNsb4HZyNkqwc8MmidzncKX9woMmeAHZO3aI61ebbDwZP/aE+RbJiM3ZwX+05gSi2FQT5rzKYDYfbgMJ3QG07EZaktLrQKI1Ec20IOcQabgwMAsWFBvJ6Dc+W1dEfwcKe59+m9AL7iErSY/oyY0RV6hrw+ZzKZMM+7HYY0Yjcmg0AiGq+/nL+VmQiTaQ53BPKwm3vZKa/Hwq/MhQaYqOhFPuu6xKqc/HPCINPSko+HgOumwnGahAqoVKzahnFVvkzjEXffgVvPM79yTABGMGsoadkWWPM6MBD4ZS1vaa/hzoqf3BWediVxf0kb0aFnVqWqB+0uqcuVGrB52IEexugcG/QjfNKCvjfjfL/KqvYn4VSCdnqpXOFpEFbThXdW16dnI3ebHQCjSI5MiedB9//knj14LP7qpvzYw6b7rKtMFIJxo6D8McGx+Zyfj2HXsDNqpJiEslGERoC2Ng3gHrXA4jS2ZbTprYDL8siY0fXg4UiIqhFPowYdEuMNGFG/nxEJjAQzoUHCslvn3e0sWqVOBwphdV1zsDvUOVwuaWLwCzYbqO5p9qZB45uTesEwaL4VpuhfuWdxTY+tQ9qHypNrwzQqZ7wipxrOwTu5HeT19BiJ+1GGUTcl0tqjaP9BlLeTf+yGOS3s0SCzqhsyEfax2Vb4VdiCHnExPcnZIa2eSBpMxonPebTKAdHY91sNO3eCZoPvIFqC87DSwUMKCSzOJ0+MnWfvlOuy8OYWzvh/LWN1s2rnVwB1ZvTo0Xy/bMv35BnSp0WC1YGQIW3r7I2OFKgEu9OJAR6WAXp8tZ+7mWGFLkwikDa84B3vKbhvKQftx6qliFSnTMJFoUBqlL/rbcAjBRrr7rGWKhk4mHygQU6TQqI9Hf9fmqqK+DzrLG+NAt8yT4WuivGU1Ki2lcO88J5nuvaWAjoQhOBkDZzjPuMY8yn7y5sl8iDvc5h0FkJs8sJ5+Wi2rkP98E2PpYanM6I5BIWhCWqsfBHYrT/sNfZxaycbvW9iRwam56VD/bZdbwNV4F8CZ0ZhdMMXJbrp3KW7ZipvYELbdCGVSGjkQkCA0vdqwAArPF/UmSOIPyD4Se2anRDNdOQp9izFHpQM/3S0GthOhIvnZq/mInM+1YKjEyeFJO/13z9Hwsc=}"
+      - usernamePassword:
+          description: "dockerhub creds"
+          id: "dockerhub-cred"
+          password: "{AQAAABAAAAAQN8ByPu+pxyjBcSYZg2gZvFrYhzqA/HjyAEjEzDdQFNc=}"
+          scope: GLOBAL
+          username: "aarondownward"
+      - string:
+          description: "slack token"
+          id: "SLACK_TOKEN"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAgsxZMjrCzydlMuCUoiyZ6F3PNmuPAQCnFIn3Za5C/05NY2zDYfy0N9fpgI1mGe6ii}"
+jenkins:
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: false
+  disableRememberMe: false
+  labelAtoms:
+  - name: "master"
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  numExecutors: 2
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: false
+  scmCheckoutRetryCount: 0
+  slaveAgentPort: 50000
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins.io/update-center.json"
+  views:
+  - all:
+      name: "all"
+  viewsTabBar: "standard"
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: true
+  sSHD:
+    port: -1
+unclassified:
+  buildDiscarders:
+    configuredBuildDiscarders:
+    - "jobBuildDiscarder"
+  defaultFolderConfiguration:
+    healthMetrics:
+    - worstChildHealthMetric:
+        recursive: true
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  gitHubPluginConfig:
+    hookUrl: "http://localhost:8080/github-webhook/"
+  gitSCM:
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  junitTestResultStorage:
+    storage: "file"
+  location:
+    adminAddress: "address not configured yet <nobody@nowhere>"
+    url: "http://localhost:8080/"
+  mailer:
+    charset: "UTF-8"
+    useSsl: false
+    useTls: false
+  pollSCM:
+    pollingThreadCount: 10
+  slackNotifier:
+    botUser: false
+    room: "aaron-jenkins-spam"
+    sendAsText: false
+    teamDomain: "revaturetrain-cx22851"
+    tokenCredentialId: "SLACK_TOKEN"
+  sonarGlobalConfiguration:
+    buildWrapperEnabled: false
+    installations:
+    - credentialsId: "SONAR_TOKEN"
+      name: "SonarCloud"
+      serverUrl: "https://sonarcloud.io/"
+      triggers:
+        skipScmCause: false
+        skipUpstreamCause: false
+tool:
+  dockerTool:
+    installations:
+    - name: "docker"
+  git:
+    installations:
+    - home: "git"
+      name: "Default"
+  maven:
+    installations:
+    - name: "maven"
+      properties:
+      - installSource:
+          installers:
+          - maven:
+              id: "3.6.3"
+  pipelineMaven:
+    triggerDownstreamUponResultAborted: false
+    triggerDownstreamUponResultFailure: false
+    triggerDownstreamUponResultNotBuilt: false
+    triggerDownstreamUponResultSuccess: true
+    triggerDownstreamUponResultUnstable: false
+  sonarRunnerInstallation:
+    installations:
+    - name: "sonar"
+      properties:
+      - installSource:
+          installers:
+          - sonarRunnerInstaller:
+              id: "4.5.0.2216"

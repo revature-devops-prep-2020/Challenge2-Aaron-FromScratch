@@ -91,7 +91,7 @@ pipeline {
         stage("Deploy to Testing") {
             steps {
                 dir("kube-deployments/testing") {
-                    withKubeConfig([credentialsId: 'kubectl-creds', serverUrl: 'https://A1DAD4B84EA09429D9D2B23B0E2F826C.gr7.us-west-2.eks.amazonaws.com']) {
+                    withKubeConfig([credentialsId: 'kubectl-creds', serverUrl: 'https://EF62A4A1E3BA2F867AF5F946B1E0B21B.gr7.us-west-2.eks.amazonaws.com']) {
                         sh 'kubectl apply -f .'
                         sh 'kubectl rollout restart deployment/simple-app -n build'
                     }
