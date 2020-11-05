@@ -69,12 +69,11 @@ pipeline {
             }
             steps{
                 dir("maven-app") {
-                    withSonarQubeEnv('SonarCloud')
-                    {
+                    withSonarQubeEnv('SonarCloud') {
                         timeout(time: 10, unit: 'MINUTES') {
                             // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
                             // true = set pipeline to UNSTABLE, false = don't
-                            waitForQualityGate abortPipeline: true
+                            waitForQualityGate abortPipeline: false
                         }
                     }
                     echo 'pass'
