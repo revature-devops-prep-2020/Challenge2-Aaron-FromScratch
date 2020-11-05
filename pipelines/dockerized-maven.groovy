@@ -115,7 +115,7 @@ pipeline {
             }
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh "trivy image --exit-code 1 aarondownward/maven-app:latest"
+                    sh "trivy image --exit-code 1 aarondownward/maven-app:${currentBuild.number}"
                 }
             }
             post {
