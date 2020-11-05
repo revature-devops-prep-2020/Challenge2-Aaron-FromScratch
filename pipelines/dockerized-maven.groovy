@@ -114,11 +114,11 @@ pipeline {
                     args '--net=host'
                     }
             }
+            environment {
+                trivyExitCode = """sh 'trivy image --exit-code 1 aarondownward/maven-app:${currentBuild.number}'"""
+            }
             steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    trivyExitCode = sh "trivy image --exit-code 1 aarondownward/maven-app:${currentBuild.number}"
-                    echo trivyExitCode
-                }
+                echo ${trivyExitCode}
             }
             post {
                 failure {
