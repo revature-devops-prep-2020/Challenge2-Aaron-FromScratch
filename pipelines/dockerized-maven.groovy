@@ -1,3 +1,5 @@
+def dockerImageLatest
+def dockerImageCurrent
 pipeline {
     agent none
     environment {
@@ -85,7 +87,7 @@ pipeline {
                 }
             }
         }
-        stage("Push Docker Image") {
+        stage("Build Docker Image") {
             agent {
                 docker { image 'docker' }
             }
@@ -95,12 +97,8 @@ pipeline {
                         docker.withTool("docker") {
                             repoIdCurrent = "aarondownward/maven-app:${currentBuild.number}"
                             repoIdLatest = "aarondownward/maven-app:latest"
-                            imageCurrent = docker.build(repoIdCurrent)
-                            imageLatest = docker.build(repoIdLatest)
-                            docker.withRegistry("https://registry.hub.docker.com", "dockerhub-cred") {
-                                imageLatest.push()
-                                imageCurrent.push()
-                            }
+                            dockerImageCurrent = docker.build(repoIdCurrent)
+                            dockerImageLatest = docker.build(repoIdLatest)
                         }
                     }
                 }
@@ -108,6 +106,21 @@ pipeline {
             post {
                 failure{
                     slackSend(color: '#FF0000', message: "${projectName}' [${gitBranch}:${currentBuild.number}] has failed to push image to docker hub.")
+                }
+            }
+        }
+        Stage("Docker push") {
+            agent {
+                docker { image 'docker' }
+            }
+            steps {
+                script {
+                    docker.withTool("docker") {
+                            docker.withRegistry("https://registry.hub.docker.com", "dockerhub-cred") {
+                                dockerImageCurrent.push()
+                                dockerImageLatest.push()
+                            }
+                        }
                 }
             }
         }
