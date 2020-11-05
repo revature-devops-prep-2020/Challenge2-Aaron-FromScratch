@@ -115,13 +115,12 @@ pipeline {
             }
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh "trivy image --exit-code 1 ${dockerTBuildNum}"
+                    sh "trivy image --exit-code 1 aarondownward/maven-app:latest"
                 }
             }
             post {
                 failure {
-                    slackSend(color: 'warning', channel: "${slackChannel}",
-                    message: "${projMsgName} has vulnerabilities in its image.")
+                    slackSend(color: '#FF0000', message: "${projectName}' [${gitBranch}:${currentBuild.number}] has failed the Trivy scan.")
                 }
             }
         }
