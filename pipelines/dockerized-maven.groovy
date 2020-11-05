@@ -6,6 +6,7 @@ pipeline {
     environment {
        projectName = 'challenge2'
        gitBranch = 'dev'
+       trivyCode = null
    }
 
     stages {
@@ -114,19 +115,29 @@ pipeline {
                     args '--net=host'
                     }
             }
-            environment {
-                trivyExitCode = """${sh(
-                    returnStdout: true,
-                    script: 'trivy image --exit-code 1 aarondownward/alpine:latest'
-                    )}"""
-            }
             steps {
-                echo "${trivyExitCode}"
+                withEnv(["trivyCode=sh 'trivy image --exit-code 1 alpine:latest'"]) {
+                    echo "${trivyCode}"
+                }
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    env.trivyExit = sh "trivy image --exit-code 1 alpine:latest"
+                } 
             }
             post {
                 failure {
                     slackSend(color: '#FF0000', message: "${projectName}' [${gitBranch}:${currentBuild.number}] has failed the Trivy scan.")
                 }
+            }
+        }
+        stage('printEnv') {
+            agent {
+                docker { 
+                    image 'aarondownward/trivy'
+                    args '--net=host'
+                    }
+            }
+            steps {
+                echo "${trivyCode}"
             }
         }
         // stage("Docker push") {
