@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:jdk11
+FROM jenkins/jenkins:lts-jdk11
 
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 COPY jenkins.yaml /usr/share/jenkins/ref/jenkins.yaml
