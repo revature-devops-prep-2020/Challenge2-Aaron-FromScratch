@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent any
     environment {
        projectName = 'challenge2'
        gitBranch = 'dev'

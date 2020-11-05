@@ -2,13 +2,13 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: devops-challenge2
+  name: devops-challenge2take3
   region: us-west-2
 
 nodeGroups:
   - name: no2-ng
-    instanceType: t2.medium
-    desiredCapacity: 1
+    instanceType: t3.medium
+    desiredCapacity: 2
     # ssh:
     #     publicKeyPath: ~/.ssh/id_rsa.pub (not needed for this challenge)
 
