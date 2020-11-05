@@ -8,9 +8,9 @@ spec:
     selector:
         app: simple-app
     ports:
-        - port: 8080
+        - port: 8081
           name: web-interface
           targetPort: 8080
-        - port: 50000
+        - port: 50001
           name: testing
           targetPort: 50000
