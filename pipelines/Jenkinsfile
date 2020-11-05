@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
     environment {
        projectName = 'challenge2'
        gitBranch = 'dev'
@@ -10,6 +10,11 @@ pipeline {
 
     stages {
         stage('Pull') {
+            agent {
+                docker { 
+                    image 'maven'
+                    args '-v $HOME/.m2:/root/.m2 --net=host' }
+            }
             steps {
                 git url: "https://github.com/revature-devops-prep-2020/Challenge2-Aaron-FromScratch.git", branch: "dev"
             }
@@ -20,6 +25,11 @@ pipeline {
             }
         }
         stage('Build') {
+            agent {
+                docker { 
+                    image 'maven'
+                    args '-v $HOME/.m2:/root/.m2 --net=host' }
+            }
             steps {
                 dir("maven-app") {
                     sh "mvn package"
@@ -32,6 +42,11 @@ pipeline {
             }
         }
         stage("Sonar") {
+            agent {
+                docker { 
+                    image 'maven'
+                    args '-v $HOME/.m2:/root/.m2 --net=host' }
+            }
             steps {
                 dir("maven-app") {
                     withSonarQubeEnv("SonarCloud") {
@@ -46,6 +61,11 @@ pipeline {
             }
         }
         stage('quality gate'){
+            agent {
+                docker { 
+                    image 'maven'
+                    args '-v $HOME/.m2:/root/.m2 --net=host' }
+            }
             steps{
                 dir("maven-app") {
                     // withSonarQubeEnv('SonarCloud')
@@ -66,6 +86,9 @@ pipeline {
             }
         }
         stage("Push Docker Image") {
+            agent {
+                docker { image 'docker' }
+            }
             steps {
                 script {
                     dir("maven-app") {
@@ -89,6 +112,11 @@ pipeline {
             }
         }
         stage("Deploy to Testing") {
+            agent {
+                docker { 
+                    image 'reblank/kubectl_agent' 
+                    args '--net=host'}
+            }
             steps {
                 dir("kube-deployments/testing") {
                     withKubeConfig([credentialsId: 'kubectl-creds', serverUrl: 'https://A1DAD4B84EA09429D9D2B23B0E2F826C.gr7.us-west-2.eks.amazonaws.com']) {
