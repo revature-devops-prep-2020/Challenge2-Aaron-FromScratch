@@ -109,7 +109,7 @@ pipeline {
                 }
             }
         }
-        Stage("Docker push") {
+        stage("Docker push") {
             agent {
                 docker { image 'docker' }
             }
