@@ -118,7 +118,7 @@ pipeline {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     script {
-                        env.trivyExit = sh "trivy image --exit-code 1 alpine:3.9.2"
+                        env.trivyExit = sh "trivy image --exit-code 1 aarondownward/maven-app:${currentBuild.number}"
                     }
                 } 
             }
