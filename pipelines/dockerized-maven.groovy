@@ -116,12 +116,12 @@ pipeline {
                     }
             }
             steps {
-                withEnv(["trivyCode=sh 'trivy image --exit-code 1 alpine:latest'"]) {
+                withEnv(["trivyCode='''sh "trivy image --exit-code 1 alpine:3.9.2"'''"]) {
                     echo "${trivyCode}"
                 }
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     script {
-                        env.trivyExit = sh "trivy image --exit-code 1 alpine:latest"
+                        env.trivyExit = sh "trivy image --exit-code 1 alpine:3.9.2"
                     }
                 } 
             }
