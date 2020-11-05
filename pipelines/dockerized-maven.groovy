@@ -115,7 +115,7 @@ pipeline {
                     }
             }
             environment {
-                trivyExitCode = """sh 'trivy image --exit-code 1 aarondownward/maven-app:${currentBuild.number}'"""
+                trivyExitCode = """sh 'trivy image --exit-code 1 alpine:latest'"""
             }
             steps {
                 echo "${trivyExitCode}"
