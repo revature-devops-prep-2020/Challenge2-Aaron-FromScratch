@@ -51,7 +51,7 @@ pipeline {
             steps {
                 dir("maven-app") {
                     withSonarQubeEnv("SonarCloud") {
-                        sh "mvn verify sonar:sonar"
+                        sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
                     }
                 }
             }
@@ -69,14 +69,14 @@ pipeline {
             }
             steps{
                 dir("maven-app") {
-                    // withSonarQubeEnv('SonarCloud')
-                    // {
-                    //     timeout(time: 10, unit: 'MINUTES') {
-                    //         // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                    //         // true = set pipeline to UNSTABLE, false = don't
-                    //         waitForQualityGate abortPipeline: true
-                    //     }
-                    // }
+                    withSonarQubeEnv('SonarCloud')
+                    {
+                        timeout(time: 10, unit: 'MINUTES') {
+                            // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                            // true = set pipeline to UNSTABLE, false = don't
+                            waitForQualityGate abortPipeline: true
+                        }
+                    }
                     echo 'pass'
                 }
             }
