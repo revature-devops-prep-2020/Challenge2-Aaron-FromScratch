@@ -1,5 +1,6 @@
 def dockerImageLatest
 def dockerImageCurrent
+def trivyExitCode
 pipeline {
     agent none
     environment {
@@ -115,7 +116,8 @@ pipeline {
             }
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh "trivy image --exit-code 1 aarondownward/maven-app:${currentBuild.number}"
+                    trivyExitCode = sh "trivy image --exit-code 1 aarondownward/maven-app:${currentBuild.number}"
+                    echo trivyExitCode
                 }
             }
             post {
